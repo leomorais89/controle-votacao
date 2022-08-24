@@ -1,0 +1,22 @@
+#Configuração de log
+logging:
+  level:
+    com:
+      cooperativismo:
+        controlevotacao: info
+          
+#Configuração de contexto
+server:
+  port: 8080
+  servlet:
+    context-path: /apicontrole
+
+#Configuração de banco
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: satellite
+    url: jdbc:postgresql://localhost:5432/controle_votacao
+    username: postgres
+  jpa:
+    show-sql: false
