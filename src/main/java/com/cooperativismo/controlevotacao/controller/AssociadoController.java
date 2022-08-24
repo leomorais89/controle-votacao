@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cooperativismo.controlevotacao.controller.request.AssociadoInsertRequest;
 import com.cooperativismo.controlevotacao.entity.Associado;
+import com.cooperativismo.controlevotacao.exception.BusinessException;
 import com.cooperativismo.controlevotacao.service.AssociadoService;
 import com.google.gson.Gson;
 
@@ -29,7 +30,7 @@ public class AssociadoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(description = "Inclui um associado")
-	private Associado insert(@RequestBody AssociadoInsertRequest associadoReq) {
+	private Associado insert(@RequestBody AssociadoInsertRequest associadoReq) throws BusinessException {
 		log.info("Post - /associados - RequestBody: ({})", associadoReq.toJson());
 		Associado associado = new Gson().fromJson(associadoReq.toJson(), Associado.class);
 		this.associadoServer.insert(associado);

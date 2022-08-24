@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,9 +27,13 @@ public class AssociadoService {
 	private final AssociadoRepository associadoRepo;
 	
 	@Validated(OnInsertAssociado.class)
-	public Associado insert(@NotNull(message = NOT_NULL, groups = OnInsertAssociado.class) @Valid Associado associado) {
+	public Associado insert(@NotNull(message = NOT_NULL, groups = OnInsertAssociado.class) @Valid Associado associado) throws BusinessException {
 		log.info("Associado insert - associado: ({})", associado.toJson());
-		return this.associadoRepo.save(associado);
+		try {
+			return this.associadoRepo.save(associado);
+		} catch (DataIntegrityViolationException e) {
+			throw new BusinessException("Já existe um associado cadastrado com esse cpf");
+		}
 	}
 	
 	public Associado findByCpf(@NotBlank(message = NOT_NULL) String cpf) throws BusinessException {

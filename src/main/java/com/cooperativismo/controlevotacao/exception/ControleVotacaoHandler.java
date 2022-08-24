@@ -15,16 +15,18 @@ public class ControleVotacaoHandler {
 	
 	@ExceptionHandler(BusinessException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public Erro negocioException(BusinessException e) {
-		log.error(e.getMessage());
-		return Erro.builder().codigo(HttpStatus.CONFLICT.value()).erro(HttpStatus.CONFLICT.getReasonPhrase()).mensagem(e.getMessage()).build();
+	public Erro businessException(BusinessException e) {
+		Erro erro = Erro.builder().codigo(HttpStatus.CONFLICT.value()).erro(HttpStatus.CONFLICT.getReasonPhrase()).mensagem(e.getMessage()).build();
+		log.error("Erro businessException - erro: ({})", erro.toJson());
+		return erro;
 	}
 	
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ConstraintViolationException.class)
 	public Erro constraintViolationException(ConstraintViolationException e) {
-		log.error(e.getMessage());
-		return Erro.builder().codigo(HttpStatus.BAD_REQUEST.value()).erro(HttpStatus.BAD_REQUEST.getReasonPhrase()).mensagem(e.getMessage()).build();
+		Erro erro = Erro.builder().codigo(HttpStatus.BAD_REQUEST.value()).erro(HttpStatus.BAD_REQUEST.getReasonPhrase()).mensagem(e.getMessage()).build();
+		log.error("Erro constraintViolationException - erro: ({})", erro.toJson());
+		return erro;
 	}
 
 }
