@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 
-import com.cooperativismo.controlevotacao.validations.OnInsertAssociado;
+import com.cooperativismo.controlevotacao.validations.OnInsertPauta;
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -28,23 +28,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_associado", schema = "public")
-public class Associado implements Serializable {
-	private static final long serialVersionUID = 938652229518297352L;
+@Table(name = "tb_pauta", schema = "public")
+public class Pauta implements Serializable {
+	private static final long serialVersionUID = -2843220084652203443L;
 	
-	@Id 
-	@Column(name = "id_associado", nullable = false)
-	@Null(message = NULL, groups = OnInsertAssociado.class)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqAssociadoId")
-	@SequenceGenerator(name = "seqAssociadoId", sequenceName = "public.seq_associado_id", allocationSize = 1)
+	@Id
+	@Column(name = "id_pauta", nullable = false)
+	@Null(message = NULL, groups = OnInsertPauta.class)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqPautaId")
+	@SequenceGenerator(name = "sqPautaId", sequenceName = "public.sq_pauta_id", allocationSize = 1)
 	private Long id;
 	
-	@Column(name = "cpf", nullable = false, unique = true)
-	@NotBlank(message = NOT_NULL, groups = OnInsertAssociado.class)
-	private String cpf;
-	
 	@Column(name = "nome", nullable = false)
-	@NotBlank(message = NOT_NULL, groups = OnInsertAssociado.class)
+	@NotBlank(message = NOT_NULL, groups = OnInsertPauta.class)
 	private String nome;
 	
 	public String toJson() {
