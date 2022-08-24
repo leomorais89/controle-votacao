@@ -11,6 +11,6 @@ import com.cooperativismo.controlevotacao.entity.Sessao;
 @Repository
 public interface SessaoRepository extends JpaRepository<Sessao, Long> {
 	
-	Optional<Sessao> findByIdPautaAndDhInicioAfterAndDhFimBefore(Long idPauta, LocalDateTime data1, LocalDateTime data2);
+	Optional<Sessao> findByPautaIdAndDhInicioAfterAndDhFimBefore(Long idPauta, LocalDateTime data1, LocalDateTime data2);
 
 }

@@ -1,5 +1,8 @@
 package com.cooperativismo.controlevotacao.entity;
 
+import static com.cooperativismo.controlevotacao.util.AbstractConstantes.NOT_NULL;
+import static com.cooperativismo.controlevotacao.util.AbstractConstantes.NULL;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -8,14 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import static com.cooperativismo.controlevotacao.util.AbstractConstantes.*;
 import com.cooperativismo.controlevotacao.validations.OnInsertSessao;
 import com.google.gson.Gson;
 import com.google.gson.annotations.JsonAdapter;
@@ -41,9 +46,11 @@ public class Sessao implements Serializable {
 	@SequenceGenerator(name = "sqSessaoId", sequenceName = "public.sq_sessao_id", allocationSize = 1)
 	private Long id;
 	
-	@Column(name = "id_pauta", nullable = false)
+	@Valid
+	@ManyToOne
 	@NotNull(message = NOT_NULL, groups = OnInsertSessao.class)
-	private Long idPauta;
+	@JoinColumn(name = "id_pauta", referencedColumnName = "id_pauta", nullable = false)
+	private Pauta pauta;
 
 	@CreationTimestamp
 	@JsonAdapter(value = LocalDateTime.class)

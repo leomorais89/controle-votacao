@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 
 import com.cooperativismo.controlevotacao.validations.OnInsertAssociado;
+import com.cooperativismo.controlevotacao.validations.OnInsertVotacao;
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class Associado implements Serializable {
 	private Long id;
 	
 	@Column(name = "cpf", nullable = false, unique = true)
-	@NotBlank(message = NOT_NULL, groups = OnInsertAssociado.class)
+	@NotBlank(message = NOT_NULL, groups = { OnInsertAssociado.class, OnInsertVotacao.class })
 	private String cpf;
 	
 	@Column(name = "nome", nullable = false)

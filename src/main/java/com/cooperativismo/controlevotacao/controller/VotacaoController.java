@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cooperativismo.controlevotacao.controller.request.SessaoInsertRequest;
-import com.cooperativismo.controlevotacao.entity.Sessao;
+import com.cooperativismo.controlevotacao.controller.request.VotacaoInsertRequest;
+import com.cooperativismo.controlevotacao.entity.Votacao;
 import com.cooperativismo.controlevotacao.exception.BusinessException;
-import com.cooperativismo.controlevotacao.service.SessaoService;
+import com.cooperativismo.controlevotacao.service.VotacaoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -20,20 +20,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sessoes")
-@Tag(name = "Sessão-Controller")
-public class SessaoController {
+@RequestMapping("/votacoes")
+@Tag(name = "Votacao-Controller")
+public class VotacaoController {
 	
-	private final SessaoService sessaoServer;
+	private final VotacaoService votacaoServer;
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@Operation(description = "Inclui uma sessão")
-	private Sessao insert(@RequestBody SessaoInsertRequest sessaoReq) throws BusinessException {
-		log.info("Post - /sessoes - RequestBody: ({})", sessaoReq.toJson());
-		Sessao sessao = this.sessaoServer.buildAndInsert(sessaoReq);
-		log.info("Response: ({})", sessao.toJson());
-		return sessao;
+	@Operation(description = "Realiza uma votação")
+	private Votacao insert(@RequestBody VotacaoInsertRequest votacaoReq) throws BusinessException {
+		log.info("Post - /votacoes - votacaoReq: ({})", votacaoReq.toJson());
+		Votacao votacao = this.votacaoServer.buildAndInsert(votacaoReq);
+		log.info("Response: ({})", votacao.toJson());
+		return votacao;
 	}
 
 }
