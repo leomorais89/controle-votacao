@@ -47,7 +47,7 @@ public class VotacaoService {
 		
 		Associado associado = this.associadoServer.findByCpf(votacao.getAssociado().getCpf());
 		votacao.setAssociado(associado);
-		
+	
 		return this.votacaoRepo.save(votacao);
 	}
 	
