@@ -20,7 +20,9 @@ import javax.validation.constraints.Null;
 import com.cooperativismo.controlevotacao.enuns.SimOuNaoEnum;
 import static com.cooperativismo.controlevotacao.util.AbstractConstantes.*;
 import com.cooperativismo.controlevotacao.validations.OnInsertVotacao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,11 +42,12 @@ public class Votacao implements Serializable {
 	@Column(name = "id_votacao", nullable = false)
 	@Null(message = NULL, groups = OnInsertVotacao.class)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqVotacaoId")
-	@SequenceGenerator(name = "sqVotacaoId", sequenceName = "public.sq_votacao_id", allocationSize = 1)
+	@SequenceGenerator(name = "sqVotacaoId", sequenceName = "public.seq_votacao_id", allocationSize = 1)
 	private Long id;
 	
 	@Valid
 	@ManyToOne
+	@JsonIgnore
 	@NotNull(message = NOT_NULL, groups = OnInsertVotacao.class)
 	@JoinColumn(name = "id_pauta", referencedColumnName = "id_pauta", nullable = false)
 	private Pauta pauta;
@@ -66,7 +69,8 @@ public class Votacao implements Serializable {
 	private SimOuNaoEnum voto; 
 	
 	public String toJson() {
-		return new Gson().toJson(this);
+		Gson gson = new GsonBuilder().addSerializationExclusionStrategy(STRATEGY_GSON).create();
+		return gson.toJson(this);
 	}
 
 }

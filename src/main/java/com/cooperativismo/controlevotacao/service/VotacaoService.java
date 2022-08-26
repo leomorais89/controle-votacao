@@ -1,5 +1,7 @@
 package com.cooperativismo.controlevotacao.service;
 
+import static com.cooperativismo.controlevotacao.util.AbstractConstantes.NOT_NULL;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -11,10 +13,8 @@ import com.cooperativismo.controlevotacao.entity.Associado;
 import com.cooperativismo.controlevotacao.entity.Pauta;
 import com.cooperativismo.controlevotacao.entity.Sessao;
 import com.cooperativismo.controlevotacao.entity.Votacao;
-import com.cooperativismo.controlevotacao.enuns.SimOuNaoEnum;
 import com.cooperativismo.controlevotacao.exception.BusinessException;
 import com.cooperativismo.controlevotacao.repository.VotacaoRepository;
-import static com.cooperativismo.controlevotacao.util.AbstractConstantes.*;
 import com.cooperativismo.controlevotacao.validations.OnInsertVotacao;
 
 import lombok.AllArgsConstructor;
@@ -47,13 +47,14 @@ public class VotacaoService {
 		
 		Associado associado = this.associadoServer.findByCpf(votacao.getAssociado().getCpf());
 		votacao.setAssociado(associado);
-	
+		
+		this.validateUniqueVoto(votacao.getPauta().getId(), associado.getId());
 		return this.votacaoRepo.save(votacao);
 	}
 	
-	public Long countByPautaIdAndVoto(@NotNull(message = NOT_NULL) Long idPauta, @NotNull(message = NOT_NULL) SimOuNaoEnum voto) {
-		log.info("Long countByPautaIdAndVoto - idPauta: ({}) - voto: ({})", idPauta, voto);
-		return this.votacaoRepo.countByPautaIdAndVoto(idPauta, voto);
+	private void validateUniqueVoto(@NotNull(message = NOT_NULL) Long idPauta, @NotNull(message = NOT_NULL) Long idAssociado) throws BusinessException {
+		log.info("void validateUniqueVoto - idPauta: ({}) - idAssociado: ({})", idPauta, idAssociado);
+		if (this.votacaoRepo.existsByPautaIdAndAssociadoId(idPauta, idAssociado)) throw new BusinessException("Associado já tem voto realizado para essa pauta"); 
 	}
 
 }

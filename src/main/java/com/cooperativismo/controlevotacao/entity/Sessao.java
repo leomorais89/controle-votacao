@@ -21,6 +21,7 @@ import javax.validation.constraints.Null;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.cooperativismo.controlevotacao.util.LocalDateTimeAdapter;
 import com.cooperativismo.controlevotacao.validations.OnInsertSessao;
 import com.google.gson.Gson;
 import com.google.gson.annotations.JsonAdapter;
@@ -43,7 +44,7 @@ public class Sessao implements Serializable {
 	@Column(name = "id_sessao", nullable = false)
 	@Null(message = NULL, groups = OnInsertSessao.class)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqSessaoId")
-	@SequenceGenerator(name = "sqSessaoId", sequenceName = "public.sq_sessao_id", allocationSize = 1)
+	@SequenceGenerator(name = "sqSessaoId", sequenceName = "public.seq_sessao_id", allocationSize = 1)
 	private Long id;
 	
 	@Valid
@@ -53,12 +54,12 @@ public class Sessao implements Serializable {
 	private Pauta pauta;
 
 	@CreationTimestamp
-	@JsonAdapter(value = LocalDateTime.class)
 	@Column(name = "dh_inicio", updatable = false)
+	@JsonAdapter(value = LocalDateTimeAdapter.class)
 	@Null(message = NULL, groups = OnInsertSessao.class)
 	private LocalDateTime dhInicio;
 
-	@JsonAdapter(value = LocalDateTime.class)
+	@JsonAdapter(value = LocalDateTimeAdapter.class)
 	@NotNull(message = NOT_NULL, groups = OnInsertSessao.class)
 	@Column(name = "dh_fim", nullable = false, updatable = false)
 	private LocalDateTime dhFim;
