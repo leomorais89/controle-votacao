@@ -1,6 +1,6 @@
 package com.cooperativismo.controlevotacao.entity;
 
-import static com.cooperativismo.controlevotacao.util.AbstractConstantes.NOT_NULL;
+import static com.cooperativismo.controlevotacao.util.AbstractConstantes.*;
 import static com.cooperativismo.controlevotacao.util.AbstractConstantes.NULL;
 
 import java.io.Serializable;
@@ -14,6 +14,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.cooperativismo.controlevotacao.validations.OnInsertAssociado;
 import com.cooperativismo.controlevotacao.validations.OnInsertVotacao;
@@ -41,6 +43,7 @@ public class Associado implements Serializable {
 	private Long id;
 	
 	@Column(name = "cpf", nullable = false, unique = true)
+	@CPF(message = INVALID, groups = { OnInsertAssociado.class, OnInsertVotacao.class })
 	@NotBlank(message = NOT_NULL, groups = { OnInsertAssociado.class, OnInsertVotacao.class })
 	private String cpf;
 	

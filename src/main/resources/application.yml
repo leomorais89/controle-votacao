@@ -20,3 +20,9 @@ spring:
     username: postgres
   jpa:
     show-sql: false
+
+#Configurações de integração
+dominio:
+  url: https://user-info.herokuapp.com
+endpoint:
+  authorized-vote: ${dominio.url}/users/{cpf}

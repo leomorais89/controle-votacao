@@ -24,6 +24,7 @@ import javax.validation.constraints.Null;
 
 import com.cooperativismo.controlevotacao.annotation.ExcludeGson;
 import com.cooperativismo.controlevotacao.enuns.PautaStatusEnum;
+import com.cooperativismo.controlevotacao.enuns.SimOuNaoEnum;
 import com.cooperativismo.controlevotacao.validations.OnFinalizePauta;
 import com.cooperativismo.controlevotacao.validations.OnInsertPauta;
 import com.cooperativismo.controlevotacao.validations.OnInsertSessao;
@@ -63,6 +64,11 @@ public class Pauta implements Serializable {
 	@Column(name = "status", nullable = false)
 	@Null(message = NULL, groups = OnInsertPauta.class)
 	private PautaStatusEnum status;
+	
+	@Column(name = "resultado")
+	@Enumerated(EnumType.STRING)
+	@Null(message = NULL, groups = OnInsertPauta.class)
+	private SimOuNaoEnum resultado;
 	
 	@JsonIgnore
 	@ExcludeGson

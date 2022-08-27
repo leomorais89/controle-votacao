@@ -82,19 +82,20 @@ public class PautaService {
 		if (qtdSim == qtdNao) {
 			throw new BusinessException("Essa pauta encontra-se com empate na votação, não pode ser finalizada no momento");
 		} else {
-			this.finalizePauta(pauta);
 			result.put(qtdSim, SimOuNaoEnum.SIM);
 			result.put(qtdNao, SimOuNaoEnum.NAO);
 			
 			int max = Math.max(qtdSim, qtdNao);
+			this.finalizePauta(pauta, result.get(max));
 			return ResultadoVotacao.builder().idPauta(idPauta).nomePauta(pauta.getNome()).qtdSim(qtdSim).qtdNao(qtdNao).resultado(result.get(max)).build();
 		}
 	}
 	
 	@Validated(OnFinalizePauta.class)
-	private Pauta finalizePauta(@NotNull(message = NOT_NULL) @Valid Pauta pauta) throws BusinessException {
+	private Pauta finalizePauta(@NotNull(message = NOT_NULL) @Valid Pauta pauta, @NotNull(message = NOT_NULL) SimOuNaoEnum result) throws BusinessException {
 		log.info("Pauta finalizePauta - pauta: ({})", pauta.toJson());
 		pauta.setStatus(PautaStatusEnum.FINALIZADA);
+		pauta.setResultado(result);
 		return this.pautaRepo.save(pauta);
 	}
 

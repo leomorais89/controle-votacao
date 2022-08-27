@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cooperativismo.controlevotacao.controller.request.VotacaoInsertRequest;
 import com.cooperativismo.controlevotacao.entity.Votacao;
 import com.cooperativismo.controlevotacao.exception.BusinessException;
+import com.cooperativismo.controlevotacao.exception.IntegrationException;
 import com.cooperativismo.controlevotacao.service.VotacaoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,7 @@ public class VotacaoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(description = "Realiza uma votação")
-	private Votacao insert(@RequestBody VotacaoInsertRequest votacaoReq) throws BusinessException {
+	private Votacao insert(@RequestBody VotacaoInsertRequest votacaoReq) throws BusinessException, IntegrationException {
 		log.info("Post - /votacoes - votacaoReq: ({})", votacaoReq.toJson());
 		Votacao votacao = this.votacaoServer.buildAndInsert(votacaoReq);
 		log.info("Response: ({})", votacao.toJson());

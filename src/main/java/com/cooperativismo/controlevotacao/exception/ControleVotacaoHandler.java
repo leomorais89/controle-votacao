@@ -3,6 +3,7 @@ package com.cooperativismo.controlevotacao.exception;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,6 +28,12 @@ public class ControleVotacaoHandler {
 		Erro erro = Erro.builder().codigo(HttpStatus.BAD_REQUEST.value()).erro(HttpStatus.BAD_REQUEST.getReasonPhrase()).mensagem(e.getMessage()).build();
 		log.error("Erro constraintViolationException - erro: ({})", erro.toJson());
 		return erro;
+	}
+	
+	@ExceptionHandler(IntegrationException.class)
+	public ResponseEntity<Erro> integrationException(IntegrationException e) {
+		log.error(e.getErro().toJson());
+		return new ResponseEntity<Erro>(e.getErro(), HttpStatus.resolve(e.getErro().getCodigo()));
 	}
 
 }
