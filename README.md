@@ -11,13 +11,13 @@ Cobertura e regras do sistema:<br>
 -> Efetua cadastro de quantas pautas desejar<br>
 -> As pautas nascem com o status ABERTA<br>
 -> Existe um serviço para listar todas as pautas cadastradas em base<br>
--> Existe um serviço para listar todas as pautas que contenha uma sessão aberta<br>
+-> Existe um serviço para listar todas as pautas que contenham uma sessão aberta<br>
 -> Só poderá abrir sessão com o status da pauta ABERTA e se não tiver uma sessão já aberta para a mesma pauta<br>
--> O associado só poderá votar uma unica vez por pauta e somente se tiver uma sessão aberta para a pauta<br>
+-> O associado só poderá votar uma única vez por pauta e somente se tiver uma sessão aberta para a pauta<br>
 -> Só poderá votar associado cadastrado no sistema e que contanha permissão para votação(validada por sistema externo)<br>
--> Votação consistem em SIM/NAO<br>
+-> Votação consiste em SIM/NAO<br>
 -> Existe um serviço para finalizar a pauta e calcular os votos dando o resultado da votação para a pauta<br>
--> Somente será possivel finalizar a pauta se não tiver sessão mais aberta e se não tiver dado empate na votação<br>
+-> Somente será possivel finalizar a pauta, se não tiver sessão mais aberta e se não tiver dado empate na votação<br>
 -> Ao finalizar a pauta, o status muda para FINALIZADA e agora poderemos ver o resultado das votações na pauta(poderá ser visto na listagem das pautas)<br>
 <br>
 <br>
