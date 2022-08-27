@@ -5,7 +5,7 @@ Esse sistema tem a finalidade de controler votações em pautas, podendo abrir v
 e no final obterá o resultado da votação.
 
 Cobertura e regras do sistema:
--> Efetua cadastro de quantos associados desejar
+-> Efetua cadastro de quantos associados desejar<br>
 -> Efetua cadastro de quantas pautas desejar
 -> As pautas nascem com o status ABERTA
 -> Existe um serviço para listar todas as pautas cadastradas em base
