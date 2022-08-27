@@ -1,8 +1,10 @@
 # controle-votacao
 Realiza controle de votação dos associados
 <br>
+<br>
 Esse sistema tem a finalidade de controler votações em pautas, podendo abrir várias sessões por pauta, onde cada associado poderá efetuar unicamente 1 voto por pauta,
 e no final obterá o resultado da votação.
+<br>
 <br>
 Cobertura e regras do sistema:<br>
 -> Efetua cadastro de quantos associados desejar<br>
